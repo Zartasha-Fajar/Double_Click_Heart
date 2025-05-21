@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>double click heart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f0f0f5;
+        }
+
+        h1 {
+            color: #333;
+            margin: 20px 0 10px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        h1 .fa-heart {
+            color: #e74c3c;
+            transition: transform 0.3s ease;
+        }
+
+        h2 {
+            color: #555;
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .parent-image {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        img:active+.fa-heart {
+            transform: scale(1.3);
+        }
+
+        .add {
+            position: absolute;
+            animation: play 1s linear infinite;
+        }
+
+        @keyframes play {
+            from {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            to {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+
+        }
+
+        .fa-heart {
+            color: #e74c3c;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Double Click on the image to
+        <i class="fa-solid fa-heart "></i>
+        it.
+    </h1>
+    <h2>You like it 18 times</h2>
+    <div class="parent-image">
+        <img src="./image/cat.jpg" alt="">
+    </div>
+
+    <script>
+
+        let img = document.querySelector("img")
+        let icon = document.querySelector("i")
+        let parent_image = document.querySelector(".parent-image")
+
+        const create = (ObjectOfEvent) => {
+
+            let { pageX, pageY } = ObjectOfEvent
+
+            let left = pageX - parent_image.offsetLeft
+
+            let top = pageY - parent_image.offsetTop
+
+            let heart = document.createElement("i")
+            parent_image.appendChild(heart)
+            heart.classList.add('fa-solid', "fa-heart", "add")
+            heart.style.left = `${left - 15}px`
+            heart.style.top = `${top - 15}px`
+            setTimeout(() => {
+                heart.remove()
+            }, 1000);
+        }
+        parent_image.addEventListener("dblclick", create)
+
+    </script>
+
+</body>
+
+</html>
